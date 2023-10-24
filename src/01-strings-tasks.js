@@ -220,8 +220,25 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  // throw new Error('Not implemented');
+  const angleUpLeft = '┌';
+  const angleUpRight = '┐';
+  const angleDownRight = '┘';
+  const angleDownLeft = '└';
+  const line = '─';
+  const pillar = '│';
+  const str = ' ';
+  let result = '';
+
+  const resultMedium = `${pillar + str.repeat(width - 2) + pillar}\n`;
+
+  const resultUp = angleUpLeft + line.repeat(width - 2) + angleUpRight;
+  const resultDown = angleDownLeft + line.repeat(width - 2) + angleDownRight;
+
+  result = `${resultUp}\n${resultMedium.repeat(height - 2)}${resultDown}\n`;
+
+  return result;
 }
 
 
@@ -241,8 +258,33 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  // throw new Error('Not implemented');
+  const normalStr = 'abcdefghijklmnopqrstuvwxyz';
+  const newStr = str.split('').map((el) => {
+    const elemIndex = normalStr.indexOf(el.toLowerCase());
+    if (normalStr[elemIndex] && el === normalStr[elemIndex].toUpperCase()) {
+      if (elemIndex + 13 >= normalStr.length) {
+        // eslint-disable-next-line consistent-return
+        return normalStr[(elemIndex + 13) % normalStr.length].toUpperCase();
+      }
+      // eslint-disable-next-line consistent-return
+      return normalStr[elemIndex + 13].toUpperCase();
+    }
+    if (el === ' ' || el === '?' || el === '!' || el === '.' || el === ',') {
+      return el;
+    // eslint-disable-next-line no-else-return
+    } else {
+      if (elemIndex + 13 >= normalStr.length) {
+        // eslint-disable-next-line consistent-return
+        return normalStr[(elemIndex + 13) % normalStr.length];
+      }
+      // eslint-disable-next-line consistent-return
+      return normalStr[elemIndex + 13];
+    }
+  }).join('');
+
+  return newStr;
 }
 
 /**
