@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* ********************************************************************************************
  *                                                                                            *
  * Please read the following tutorial before implementing tasks:                               *
@@ -214,8 +215,9 @@ function getTail(arr, n) {
  *    +'20,21,22,23,24\n'
  *    +'30,31,32,33,34'
  */
-function toCsvText(/* arr */) {
-  throw new Error('Not implemented');
+function toCsvText(arr) {
+  // throw new Error('Not implemented');
+  return arr.map((item) => `${item.join(',')}\n`).join('').trimEnd();
 }
 
 /**
@@ -249,8 +251,16 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  throw new Error('Not implemented');
+function getMovingSum(arr) {
+  // throw new Error('Not implemented');
+  // eslint-disable-next-line array-callback-return, arrow-body-style
+  return arr.map((item, i) => {
+    // eslint-disable-next-line array-callback-return, arrow-body-style
+    return arr.slice(0, i + 1).reduce((acc, el) => {
+      // eslint-disable-next-line no-param-reassign
+      return acc + el;
+    }, 0);
+  });
 }
 
 /**
@@ -325,8 +335,15 @@ function get3TopItems(arr) {
  *   [ null, 1, 'elephant' ] => 1
  *   [ 1, '2' ] => 1
  */
-function getPositivesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getPositivesCount(arr) {
+  // throw new Error('Not implemented');
+  return arr.reduce((acc, item) => {
+    if (typeof item === 'number' && item > 0) {
+      // eslint-disable-next-line no-param-reassign
+      acc += 1;
+    }
+    return acc;
+  }, 0);
 }
 
 /**
@@ -342,8 +359,115 @@ function getPositivesCount(/* arr */) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const newArr = arr.map((item) => {
+    // eslint-disable-next-line no-tabs
+    if (item === 'zero') {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 0;
+    }
+
+    if (item === 'one') {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 1;
+    }
+
+    if (item === 'two') {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 2;
+    }
+
+    if (item === 'three') {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 3;
+    }
+
+    if (item === 'four') {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 4;
+    }
+
+    if (item === 'five') {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 5;
+    }
+
+    if (item === 'six') {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 6;
+    }
+
+    if (item === 'seven') {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 7;
+    }
+
+    if (item === 'eight') {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 8;
+    }
+
+    if (item === 'nine') {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 9;
+    }
+
+    return item;
+  });
+
+  return newArr.sort((a, b) => a - b).map((item) => {
+    if (item === 0) {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 'zero';
+    }
+
+    if (item === 1) {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 'one';
+    }
+
+    if (item === 2) {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 'two';
+    }
+
+    if (item === 3) {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 'three';
+    }
+
+    if (item === 4) {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 'four';
+    }
+
+    if (item === 5) {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 'five';
+    }
+
+    if (item === 6) {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 'six';
+    }
+
+    if (item === 7) {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 'seven';
+    }
+
+    if (item === 8) {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 'eight';
+    }
+
+    if (item === 9) {
+      // eslint-disable-next-line no-tabs, no-param-reassign
+      item = 'nine';
+    }
+
+    return item;
+  });
 }
 
 /**
@@ -446,8 +570,20 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  // throw new Error('Not implemented');
+  // eslint-disable-next-line array-callback-return, consistent-return
+  return arr.sort((a, b) => {
+    if (a.country > b.country) return 1;
+    if (a.country === b.country) {
+      if (a.city > b.city) return 1;
+      if (a.city === b.city) return 0;
+      if (a.city < b.city) return -1;
+      return 0;
+    }
+    if (a.country < b.country) return -1;
+    /* a.country > b.country; */
+  });
 }
 
 /**
@@ -468,8 +604,16 @@ function sortCitiesArray(/* arr */) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  // throw new Error('Not implemented');
+  const newArray = new Array(n).fill(0);
+  return newArray.map((item, i) => {
+    const arr = new Array(n).fill(0).map((elem, index) => {
+      if (i === index) return 1;
+      return 0;
+    });
+    return arr;
+  });
 }
 
 /**
@@ -485,8 +629,14 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  // throw new Error('Not implemented');
+  const length = end + 1 - start;
+  const newArr = new Array(length).fill(0);
+  return newArr.map((item, i) => {
+    const fill = start + i;
+    return fill;
+  });
 }
 
 /**
@@ -500,8 +650,13 @@ function getIntervalArray(/* start, end */) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  // throw new Error('Not implemented');
+
+  // return Array.from(new Set([...arr]));
+
+  // eslint-disable-next-line consistent-return
+  return arr.filter((item, index, array) => array.indexOf(item) === index);
 }
 
 /**
@@ -552,8 +707,10 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], (x) => x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+// eslint-disable-next-line no-unused-vars
+function selectMany(arr, childrenSelector) {
+  // throw new Error('Not implemented');
+  return arr.map(childrenSelector).flat(2);
 }
 
 
@@ -592,8 +749,24 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  // throw new Error('Not implemented');
+  let leftArr;
+  let rightArr;
+
+  if (arr.length === 1) {
+    return arr;
+  }
+  if (arr.length % 2 === 0) {
+    leftArr = arr.slice(arr.length / 2);
+    rightArr = arr.slice(0, arr.length / 2);
+    return leftArr.concat(rightArr);
+  }
+
+  leftArr = arr.slice(Math.ceil(arr.length / 2));
+  rightArr = arr.slice(0, Math.floor(arr.length / 2));
+  const medium = arr[Math.floor(arr.length / 2)];
+  return leftArr.concat(medium, rightArr);
 }
 
 
