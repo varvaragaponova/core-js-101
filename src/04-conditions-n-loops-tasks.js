@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 /* *************************************************************************************************
  *                                                                                                *
  * Please read the following tutorial before implementing tasks:                                   *
@@ -27,8 +28,13 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
+// eslint-disable-next-line consistent-return
+function getFizzBuzz(num) {
+  // throw new Error('Not implemented');
+  if (num % 3 !== 0 && num % 5 !== 0) return num;
+  if (num % 3 === 0 && num % 5 !== 0) return 'Fizz';
+  if (num % 3 !== 0 && num % 5 === 0) return 'Buzz';
+  if (num % 3 === 0 && num % 5 === 0) return 'FizzBuzz';
 }
 
 
@@ -43,8 +49,13 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  // throw new Error('Not implemented');
+  let result = 1;
+  for (let i = 1; i <= n; i += 1) {
+    result *= i;
+  }
+  return result;
 }
 
 
@@ -60,8 +71,15 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  // throw new Error('Not implemented');
+  let result = 0;
+
+  for (let i = n1; i <= n2; i += 1) {
+    result += i;
+  }
+
+  return result;
 }
 
 
@@ -80,8 +98,12 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  // throw new Error('Not implemented');
+
+  if (a + b > c && b + c > a && a + c > b) return true;
+
+  return false;
 }
 
 
@@ -117,8 +139,12 @@ function isTriangle(/* a, b, c */) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  // throw new Error('Not implemented');
+  // eslint-disable-next-line max-len
+  if ((rect1.width > rect2.top && rect1.height > rect2.left) || (rect1.top < rect2.top && rect1.left < rect2.left && (rect1.width > rect2.left || rect1.height > rect2.left)) || (rect1.top > rect2.top && rect1.left > rect2.left && (rect1.width > rect2.width || rect1.height > rect2.height))) return true;
+
+  return false;
 }
 
 
@@ -150,6 +176,9 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  */
 function isInsideCircle(/* circle, point */) {
   throw new Error('Not implemented');
+  // if (circle.center.x === point.x && circle.center.y === point.y) return true;
+
+  // return false;
 }
 
 
@@ -164,8 +193,20 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  // throw new Error('Not implemented');
+  const obj = {};
+  for (let i = 0; i < str.length; i += 1) {
+    if (obj[str[i]]) {
+      obj[str[i]] += 1;
+    } else {
+      obj[str[i]] = 1;
+    }
+  }
+  for (let j = 0; j < str.length; j += 1) {
+    if (obj[str[j]] === 1) return str[j];
+  }
+  return null;
 }
 
 
@@ -191,8 +232,26 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  // throw new Error('Not implemented');
+  let result = '';
+  const numSort = [a, b].sort((i, j) => i - j).join(', ');
+  let left;
+  let right;
+
+  if (isStartIncluded === true) {
+    left = '[';
+  } else {
+    left = '(';
+  }
+
+  if (isEndIncluded === true) {
+    right = ']';
+  } else {
+    right = ')';
+  }
+  result = `${left}${numSort}${right}`;
+  return result;
 }
 
 
@@ -208,8 +267,9 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  // throw new Error('Not implemented');
+  return str.split('').reverse().join('');
 }
 
 
@@ -225,8 +285,9 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  // throw new Error('Not implemented');
+  return +`${num}`.split('').reverse().join('');
 }
 
 
@@ -250,8 +311,51 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+// eslint-disable-next-line consistent-return
+function isCreditCardNumber(ccn) {
+  // throw new Error('Not implemented');
+  const ccnArr = ccn.toString().split('');
+  let num = 0;
+  let sum = 0;
+  if (ccnArr.length % 2 === 0) {
+    sum = ccnArr.map((item, i) => {
+      if (i === 0 || i % 2 === 0) {
+        if (+item * 2 > 9) {
+          num = +item * 2 - 9;
+        } else {
+          num = +item * 2;
+        }
+      } else if (i % 2 !== 0 || i === ccnArr.length - 1) {
+        num = +item;
+      }
+      return num;
+    // eslint-disable-next-line no-return-assign, no-param-reassign
+    }).reduce((acc, item) => acc += item, 0).toString().split('');
+
+    if (sum[sum.length - 1] === '0') {
+      return true;
+    // eslint-disable-next-line no-else-return
+    }
+    return false;
+  } else {
+    sum = ccnArr.map((item, i) => {
+      if (i % 2 === 0 || i === ccnArr.length - 1) {
+        num = +item;
+      } else if (i !== 0 || i % 2 !== 0) {
+        if (+item * 2 > 9) {
+          num = +item * 2 - 9;
+        } else {
+          num = +item * 2;
+        }
+      }
+      return num;
+    // eslint-disable-next-line no-return-assign, no-param-reassign
+    }).reduce((acc, item) => acc += item, 0).toString().split('');
+    if (sum[sum.length - 1] === '0') {
+      return true;
+    }
+    return false;
+  }
 }
 
 /**
@@ -307,7 +411,7 @@ function isBracketsBalanced(/* str */) {
  * https://en.wikipedia.org/wiki/Ternary_numeral_system
  * https://en.wikipedia.org/wiki/Radix
  *
- * @param {number} num
+ * @param {number} numё
  * @param {number} n, radix of the result
  * @return {string}
  *

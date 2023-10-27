@@ -689,8 +689,16 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  // throw new Error('Not implemented');
+  // eslint-disable-next-line arrow-parens
+  return new Map(Object.entries(array.reduce((acc, item, i, it) => {
+    const key = keySelector(item);
+    if (!(key in acc)) {
+      acc[key] = it.filter((el) => Object.values(el).includes(key)).map(valueSelector);
+    }
+    return acc;
+  }, {})));
 }
 
 
