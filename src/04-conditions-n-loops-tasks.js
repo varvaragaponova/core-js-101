@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable consistent-return */
 /* eslint-disable no-else-return */
 /* *************************************************************************************************
  *                                                                                                *
@@ -407,8 +409,32 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+// eslint-disable-next-line consistent-return
+function isBracketsBalanced(str) {
+  // throw new Error('Not implemented');
+  const stack = [];
+  const mapper = {
+    ']': '[',
+    '}': '{',
+    ')': '(',
+    '>': '<',
+  };
+
+  // eslint-disable-next-line arrow-parens
+  str.split('').forEach(item => {
+    if (Object.values(mapper).includes(item)) {
+      stack.push(item);
+    } else {
+      // eslint-disable-next-line no-lonely-if
+      if (mapper[item] === stack.at(-1)) {
+        stack.pop();
+      } else {
+        stack.push(item);
+      }
+    }
+  });
+
+  return !stack.length;
 }
 
 
@@ -420,7 +446,7 @@ function isBracketsBalanced(/* str */) {
  * https://en.wikipedia.org/wiki/Ternary_numeral_system
  * https://en.wikipedia.org/wiki/Radix
  *
- * @param {number} numё
+ * @param {number} num
  * @param {number} n, radix of the result
  * @return {string}
  *
@@ -432,8 +458,9 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  // throw new Error('Not implemented');
+  return Number(num.toString(n));
 }
 
 
@@ -449,8 +476,22 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  // throw new Error('Not implemented');
+  let result = '';
+  for (let i = 0; i < pathes[0].length; i += 1) {
+    const isCommonSymbol = pathes.every((el) => el[i] === pathes[0][i]);
+    if (isCommonSymbol) result += pathes[0][i];
+    else break;
+  }
+  const resArr = result.split('/');
+  // eslint-disable-next-line prefer-template
+  if (resArr.length === 1 && resArr[0] === '') {
+    return '';
+  } else {
+    // eslint-disable-next-line prefer-template
+    return resArr.slice(0, resArr.length - 1).join('/') + '/';
+  }
 }
 
 
@@ -507,8 +548,38 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  // throw new Error('Not implemented');
+  const arrFlat = position.flat(2);
+  if (arrFlat.length === 0) {
+    return undefined;
+  }
+
+  // eslint-disable-next-line max-len
+  if ((position[0][0] == position[0][1] && position[0][1] == position[0][2] && position[0][0] != undefined) || (position[0][0] == position[1][1] && position[1][1] == position[2][2])) {
+    return position[0][0];
+  }
+  // eslint-disable-next-line max-len
+  if (position[1][0] == position[1][1] && position[1][1] == position[1][2] && position[1][0] != undefined) {
+    return position[1][0];
+  }
+  // eslint-disable-next-line max-len
+  if (position[2][0] == position[2][1] && position[2][1] == position[2][2] && position[2][0] != undefined) {
+    return position[2][0];
+  }
+  if (position[0][2] == position[1][1] && position[1][1] == position[2][0]) {
+    return position[0][2];
+  }
+  if (position[0][1] == position[1][1] && position[1][1] == position[2][1]) {
+    return position[0][1];
+  }
+  if (position[0][0] == position[1][0] && position[1][0] == position[2][0]) {
+    return position[2][0];
+  }
+  if (position[0][2] == position[1][2] && position[1][2] == position[2][2]) {
+    return position[0][2];
+  }
+  return undefined;
 }
 
 
